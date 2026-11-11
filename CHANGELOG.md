@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [v1.1.2] - 2026-11-11
+
+### Changed
+- **Main-Only CI Triggers**: Updated `ci.yml`, `codeql.yml`, and `release-docs.yml` workflows to trigger only on merges/pushes to `main` (plus manual dispatch / scheduled scans).
+- **Govulncheck Upgrade**: Upgraded `govulncheck` to `v1.4.0` in `ci.yml` for Go 1.27 compatibility.
+
+---
+
 ## [v1.1.1] - 2026-11-11
 
 ### Changed
