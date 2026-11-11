@@ -46,13 +46,14 @@ jobs:
       - name: Deploy to gh-pages branch
         run: |
           # Store the build artifacts
+          rm -rf /tmp/docusaurus-build
           mkdir -p /tmp/docusaurus-build
           cp -r apps/docs/build/* /tmp/docusaurus-build/
 
           # Cleanly switch to gh-pages branch, creating orphan if it doesn't exist
           if git ls-remote --exit-code --heads origin gh-pages; then
-            git fetch origin gh-pages
-            git checkout gh-pages
+            git fetch origin gh-pages:refs/remotes/origin/gh-pages
+            git checkout -B gh-pages origin/gh-pages
           else
             git checkout --orphan gh-pages
           fi
@@ -64,9 +65,9 @@ jobs:
           # Copy the build artifacts
           cp -r /tmp/docusaurus-build/* .
 
-          # Check if there are any changes before committing
-          if [[ -n "$(git status --porcelain)" ]]; then
-            git add .
+          # Stage changes before checking for actual diffs to avoid empty-commit failure
+          git add -A
+          if ! git diff --cached --quiet; then
             git commit -m "chore(docs): update documentation build"
             git push origin gh-pages
             echo "✅ Documentation deployed to gh-pages"

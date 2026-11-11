@@ -1,51 +1,92 @@
 version: 2
 updates:
-  # Maintain GitHub Actions dependencies
+  # Maintain GitHub Actions dependencies (grouped so multi-step actions like CodeQL stay in sync)
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      codeql-actions:
+        patterns:
+          - "github/codeql-action*"
+      github-actions:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "github/codeql-action*"
 
   # Maintain Go dependencies in root module
   - package-ecosystem: "gomod"
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      go-dependencies:
+        patterns:
+          - "*"
 
   # Maintain Go dependencies in test/integration
   - package-ecosystem: "gomod"
     directory: "/test/integration"
     schedule:
       interval: "weekly"
+    groups:
+      integration-dependencies:
+        patterns:
+          - "*"
 
   # Maintain Go dependencies in examples
   - package-ecosystem: "gomod"
     directory: "/examples/minimal"
     schedule:
       interval: "weekly"
+    groups:
+      example-dependencies:
+        patterns:
+          - "*"
 
   - package-ecosystem: "gomod"
     directory: "/examples/kubernetes"
     schedule:
       interval: "weekly"
+    groups:
+      example-dependencies:
+        patterns:
+          - "*"
 
   - package-ecosystem: "gomod"
     directory: "/examples/pgx"
     schedule:
       interval: "weekly"
+    groups:
+      example-dependencies:
+        patterns:
+          - "*"
 
   - package-ecosystem: "gomod"
     directory: "/examples/prometheus-adapter"
     schedule:
       interval: "weekly"
+    groups:
+      example-dependencies:
+        patterns:
+          - "*"
 
   - package-ecosystem: "gomod"
     directory: "/examples/with-dashboard"
     schedule:
       interval: "weekly"
+    groups:
+      example-dependencies:
+        patterns:
+          - "*"
 
   # Maintain npm dependencies in documentation
   - package-ecosystem: "npm"
     directory: "/apps/docs"
     schedule:
       interval: "weekly"
+    groups:
+      docs-dependencies:
+        patterns:
+          - "*"

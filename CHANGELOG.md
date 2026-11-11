@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [v1.1.1] - 2026-11-11
+
+### Changed
+- **Official Module & Repository Path**: Migrated module path and all imports, examples, and documentation to `github.com/mindfiredigital/d-cron` for official publication on `pkg.go.dev`.
+- **Documentation & Governance**: Updated Docusaurus site URL (`https://mindfiredigital.github.io/d-cron/`), repository links, and cleaned internal specification comments from public docs.
+
+### Security
+- **Log Injection Remediation (CWE-117)**: Added [`sanitizeLogValue`](dcron/dcron.go) to strip `\r` and `\n` characters from dynamic job names and specs before structured logging across `dcron/dcron.go` and `dcron/loop.go`.
+
+### Fixed
+- **CI Vulnerability Scan**: Updated `vulnerability-scan` workflow job to use the latest `stable` Go toolchain instead of a pinned patch release so `govulncheck` validates against patched standard library releases.
+- **CodeQL Workflow & Dependabot**: Synchronized `github/codeql-action/init` and `github/codeql-action/analyze` to `v4.39.3` and grouped Dependabot updates to prevent action version skew across steps.
+- **Docs Deployment Workflow**: Staged generated static files prior to checking staged diffs in `release-docs.yml` so unchanged documentation builds exit cleanly without empty-commit failures.
+
+---
+
 ## [v1.1.0] - 2026-10-29
 
 ### Added
