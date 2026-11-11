@@ -14,6 +14,11 @@ updates:
           - "*"
         exclude-patterns:
           - "github/codeql-action*"
+    ignore:
+      - dependency-name: "actions/*"
+        update-types: [ "version-update:semver-major" ]
+      - dependency-name: "softprops/action-gh-release"
+        update-types: [ "version-update:semver-major" ]
 
   # Maintain Go dependencies in root module
   - package-ecosystem: "gomod"
@@ -34,6 +39,10 @@ updates:
       integration-dependencies:
         patterns:
           - "*"
+    ignore:
+      # Newer versions require Go > 1.23, breaking the Go 1.23 CI/Release matrix
+      - dependency-name: "github.com/testcontainers/testcontainers-go"
+        versions: [ ">= 0.33.0" ]
 
   # Maintain Go dependencies in examples
   - package-ecosystem: "gomod"
@@ -62,6 +71,10 @@ updates:
       example-dependencies:
         patterns:
           - "*"
+    ignore:
+      # Newer versions require Go > 1.23, breaking the Go 1.23 CI/Release matrix
+      - dependency-name: "github.com/jackc/pgx/v5"
+        versions: [ ">= 5.8.0" ]
 
   - package-ecosystem: "gomod"
     directory: "/examples/prometheus-adapter"
@@ -71,6 +84,10 @@ updates:
       example-dependencies:
         patterns:
           - "*"
+    ignore:
+      # Newer versions require Go > 1.23, breaking the Go 1.23 CI/Release matrix
+      - dependency-name: "github.com/prometheus/client_golang"
+        versions: [ ">= 1.20.0" ]
 
   - package-ecosystem: "gomod"
     directory: "/examples/with-dashboard"
@@ -90,3 +107,7 @@ updates:
       docs-dependencies:
         patterns:
           - "*"
+    ignore:
+      # TypeScript 7.0 removes 'baseUrl' used by @docusaurus/tsconfig 3.10.2
+      - dependency-name: "typescript"
+        versions: [ ">= 7.0.0" ]
